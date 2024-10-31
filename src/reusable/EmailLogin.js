@@ -32,24 +32,33 @@ export default function EmailLogin({ chatId }) {
 
     setLoading(true);
     try {
-      const result = await axios.post(`/login/email`, {
-        email: email,
-        chatId: chatId
+      const result = await axios.post(`/login/code`, {
+        email: email
       });
 
-      if (result.data?.access_token) {
-        await localStorage.setItem(jwtKey, result.data.access_token);
-        setAuth({ ...result.data, token: result.data.access_token });
+      if (result.status === 200) {
+        await localStorage.setItem('userEmail', email);
+        setAuth({ 
+          email: email, // Include email
+          given_name: result.data.given_name,
+          family_name: result.data.family_name,
+          photo: result.data.photo,
+          user_create_topic_permission: result.data.user_create_topic_permission,
+          isSubscribed: result.data.isSubscribed
+        });
         
         if (chatId) {
           router.push(`/chat/${chatId}`);
         } else {
           router.push("/");
         }
+      } else {
+        setError(t("login.loginFailed"));
       }
       setOpen(false);
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      console.error(err);
+      setError(err.response?.data?.message || t("login.loginFailed"));
     } finally {
       setLoading(false);
     }

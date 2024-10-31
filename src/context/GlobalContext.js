@@ -4,7 +4,10 @@ import * as actionTypes from "./actions";
 import reducer from "./reducer";
 
 const initialState = {
-  user: null,
+  user: {
+    email: null,
+    // other user properties
+  },
 };
 export const GlobalContext = createContext(initialState);
 
