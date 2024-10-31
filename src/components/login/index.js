@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useTranslation } from "react-i18next";
-import GoogleLogin from "../../reusable/Google";
+import EmailLogin from "../../reusable/EmailLogin";
 import { GlobalContext } from "../../context/GlobalContext";
 import Link from "next/link";
 import axios from "../../utils/axios";
@@ -291,7 +291,7 @@ export default function Login() {
                   {t("login.newTutor")}
                 </Button>
                 <div style={{ height: "19px" }} />
-                <GoogleLogin />
+                <EmailLogin />
               </Grid>
             </Grid>
           </Grid>

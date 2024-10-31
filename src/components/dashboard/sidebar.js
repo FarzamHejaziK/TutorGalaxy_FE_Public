@@ -22,7 +22,7 @@ import PlanDialog from "../../reusable/plan";
 import { jwtKey } from "../../data/websiteInfo";
 import axios from "../../utils/axios";
 import { useTranslation } from "react-i18next";
-import GoogleLogin from "../../reusable/Google";
+import EmailLogin from "../../reusable/EmailLogin";
 export default function SideBar({
   showSidebar,
   setShowSidebar,
@@ -382,7 +382,7 @@ export default function SideBar({
               {t("chat.sidebar.signIn")}
             </Typography>
             <div style={{ height: "24px" }} />
-            <GoogleLogin chatId={!isNew ? id : undefined} />
+            <EmailLogin chatId={!isNew ? id : undefined} />
           </Grid>
         </Grid>
       ) : (

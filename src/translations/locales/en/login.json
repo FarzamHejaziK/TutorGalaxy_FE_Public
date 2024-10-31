@@ -7,5 +7,10 @@
   "loginFailed": "Something went wrong",
   "privacy": "Privacy Policy",
   "terms": "Terms & Conditions",
-  "contact": "Contact Us"
+  "contact": "Contact Us",
+  "email login": " Login with email",
+  "continue": "Login",
+  "LoginWithEmail": "Sign in",
+  "emailSignIn": "Sign in with email",
+  "enterEmail": "Email Address"
 }
