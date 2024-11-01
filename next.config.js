@@ -2,8 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   publicRuntimeConfig: {
-    REACT_APP_API_URL: process.env.REACT_APP_API_URL,
-    REACT_APP_URI: process.env.REACT_APP_URI,
+    REACT_APP_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
 };
 

@@ -8,10 +8,13 @@ export default function LoginPage() {
   const { t } = useTranslation();
   return (
     <>
+      {console.log("Rendering LoginPage")};
       <Head>
         <title>{t("login.Header")}</title>
       </Head>
+      {console.log("Head component rendered")};
       <Login />
+      {console.log("Login component rendered")};
     </>
   );
 }

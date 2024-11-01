@@ -255,7 +255,7 @@ const Messages = ({
             sx={{ mt: "20px", position: "fixed" }}
           >
             {langId !== "-1" &&
-              globaluser?.token &&
+              globaluser?.email &&
               !(loading.active && loading.action === "page") && (
                 <Grid item sx={{ mb: "20px" }}>
                   <Button
@@ -553,7 +553,7 @@ const Messages = ({
                                 }}
                               >
                                 {isUser
-                                  ? !globaluser?.token
+                                  ? !globaluser?.email
                                     ? "Anonymous"
                                     : `${
                                         globaluser?.given_name
@@ -1042,7 +1042,7 @@ export default function Index() {
   }, []);
 
   const chatHistory = async (newPage, action) => {
-    if (!globaluser?.token) {
+    if (!globaluser?.email) {
       router.push("/login");
     }
     if (router.query.id === "new") return;
@@ -1138,7 +1138,7 @@ export default function Index() {
 
       let body;
       let url = "";
-      if (!globaluser?.token) {
+      if (!globaluser?.email) {
         url = "Get_created_topic_public";
         body = JSON.stringify({
           id: id,
@@ -1228,7 +1228,7 @@ export default function Index() {
       let body;
       let url = "";
       if (messageType === "first") {
-        if (!globaluser?.token) {
+        if (!globaluser?.email) {
           url = "Conv_first_massage_public";
           body = JSON.stringify({
             id: id,
@@ -1237,7 +1237,7 @@ export default function Index() {
           url = "Conv_first_massage";
         }
       } else if (messageType === "next") {
-        if (!globaluser?.token) {
+        if (!globaluser?.email) {
           url = "Conv_next_massage_public";
           body = JSON.stringify({
             user_input: user_input,
@@ -1250,7 +1250,7 @@ export default function Index() {
           });
         }
       } else {
-        if (!globaluser?.token) {
+        if (!globaluser?.email) {
           body = JSON.stringify({
             user_input: user_input,
             id: newId ? newId : id,
@@ -1264,19 +1264,16 @@ export default function Index() {
           url = "get_response_stream";
         }
       }
-      const response = await fetch(
-        `${publicRuntimeConfig.REACT_APP_API_URL}/api/v1/${url}`,
-        {
-          method: "POST",
-          body: body,
-
-          headers: {
-            "Content-Type": "application/json",
-
-            authorization: "Bearer " + globaluser?.token,
-          },
-        }
-      );
+      console.log('API URL:', `${publicRuntimeConfig.REACT_APP_API_URL}/api/v1/${url}`);
+      console.log('Request Body:', body);
+      const response = await fetch(`${publicRuntimeConfig.REACT_APP_API_URL}/api/v1/${url}?email=${globaluser?.email || ''}`, {
+        method: "POST",
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + globaluser?.token,
+        },
+      });
       const reader = response.body.getReader();
       let first = false;
 
@@ -1446,7 +1443,7 @@ export default function Index() {
   useEffect(() => {
     if (router.query.id) {
       if (router.query.id === "new") {
-        if (!globaluser?.token) {
+        if (!globaluser?.email) {
           router.push("/login");
         }
         setIsNew(true);
@@ -1454,7 +1451,7 @@ export default function Index() {
         getWizardProfile();
       } else {
         const newConversationQuery = router.query.new;
-        if (!globaluser?.token) {
+        if (!globaluser?.email) {
           if (newConversationQuery) {
             setIsNew(true);
             sendMessageApi("", "first");
@@ -1590,7 +1587,7 @@ export default function Index() {
 
   const getWizardProfile = async () => {
     let url = "wizard_details";
-    if (!globaluser?.token) {
+    if (!globaluser?.email) {
       url = "wizard_details_public";
     }
     try {
@@ -1610,7 +1607,7 @@ export default function Index() {
   };
   const getBuddyProfile = async () => {
     let url = "buddy_details";
-    if (!globaluser?.token) {
+    if (!globaluser?.email) {
       url = "buddy_details_public";
     }
     try {

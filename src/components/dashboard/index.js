@@ -139,6 +139,7 @@ const MainPaper = ({ children, sx, otherProps, onClick }) => {
   );
 };
 export default function Dashboard() {
+  console.log("1. Start of Dashboard component");
   const { t } = useTranslation();
 
   const theme = useTheme();

@@ -365,7 +365,7 @@ export default function SideBar({
       onClose={() => setShowSidebar(false)}
       onOpen={() => setShowSidebar(true)}
     >
-      {!globaluser?.token ? (
+      {!globaluser?.email ? (
         <Grid
           container
           direction='column'
